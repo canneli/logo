@@ -3,289 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Felipe Canneli - Gummy Candy Art 2026</title>
-    <!-- Fonte Bagel Fat One: A fonte definitiva para o estilo Gummy/Doce -->
-    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Felipe Canneli - Ultra Glam 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-orange: #ff6600;
-            --color-yellow: #ffff00;
-            --color-cyan: #00ffff;
-            --color-magenta: #ff00ff;
+            --primary-orange: #ff7800;
+            --bright-yellow: #ffea00;
+            --glam-red: #ff004c;
+            --deep-burgundy: #4a0010;
+            --eye-size: 60px;
         }
-        body {
+
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: transparent;
-            overflow: hidden;
-            font-family: 'Bagel Fat One', cursive;
-        }
-        #canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent; 
+            overflow: hidden;
+            font-family: 'Fredoka', sans-serif;
+            perspective: 3000px;
         }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        /* Aura de Neon Ultra Glam */
+        .neon-aura {
+            position: absolute;
+            width: 800px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(255, 0, 76, 0.3) 0%, rgba(255, 120, 0, 0.1) 50%, transparent 80%);
+            filter: blur(80px);
+            z-index: 1;
+            animation: aura-glow 4s ease-in-out infinite alternate;
+        }
+
+        /* TEXTO 3D EXTRUDADO */
+        .logo-3d {
+            font-size: 130px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            position: relative;
+            z-index: 100;
+            color: white;
+            text-align: center;
+            
+            /* Gradiente Cromado de Base */
+            background: linear-gradient(180deg, 
+                #ffffff 0%, 
+                var(--bright-yellow) 20%, 
+                var(--primary-orange) 40%, 
+                var(--glam-red) 70%,
+                var(--deep-burgundy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* Camadas de Extrusão 3D (Shadow Stacking) */
+            filter: drop-shadow(0 0 20px rgba(255, 0, 76, 0.5));
+            text-shadow: 
+                0 1px 0 #d9d9d9,
+                0 2px 0 #cccccc,
+                0 3px 0 #bfbfbf,
+                0 4px 0 #b3b3b3,
+                0 5px 0 #a6a6a6,
+                0 6px 0 #999999,
+                0 7px 0 #8c8c8c,
+                0 8px 0 #808080,
+                0 10px 20px rgba(0,0,0,0.5);
+
+            animation: float-3d 5s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        /* Overlay de Vidro Líquido / Gloss */
+        .logo-3d::after {
+            content: 'FELIPE CANNELI';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                170deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.9) 48%,
+                #ffffff 50%,
+                rgba(255, 255, 255, 0.3) 53%,
+                transparent 60%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 100%;
+            animation: liquid-shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* SISTEMA DE ÓRBITAS CINEMÁTICAS */
+        .orbit-wrap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            pointer-events: none;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+        }
+
+        /* Órbita 1: Ampla e Lenta */
+        .orb-1 { width: 1000px; height: 500px; margin-top: -250px; margin-left: -500px; animation: rotate-3d-x 15s linear infinite; }
+        /* Órbita 2: Rápida e Inclinada */
+        .orb-2 { width: 700px; height: 900px; margin-top: -450px; margin-left: -350px; animation: rotate-3d-y 10s linear infinite reverse; }
+
+        /* OLHO GLAM */
+        .eye-container {
+            position: absolute;
+            width: var(--eye-size);
+            height: var(--eye-size);
+            transform-style: preserve-3d;
+        }
+
+        .eye-ball {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #eee 40%, #ccc 100%);
+            border-radius: 50%;
+            border: 4px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset -5px -5px 15px rgba(0,0,0,0.2);
+            /* Mantém o olho de frente para a câmara */
+            animation: counter-rotate-orb1 15s linear infinite;
+        }
+
+        .orb-2 .eye-ball { animation: counter-rotate-orb2 10s linear infinite; }
+
+        .iris {
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, #000 20%, var(--glam-red) 80%, var(--primary-orange) 100%);
+            border-radius: 50%;
+            border: 2px solid #000;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pupil {
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        .pupil::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            width: 12px;
+            height: 8px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            transform: rotate(-30deg);
+        }
+
+        /* Sparkles Y2K de Alta Intensidade */
+        .glam-star {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            clip-path: polygon(50% 0%, 54% 46%, 100% 50%, 54% 54%, 50% 100%, 46% 54%, 0% 50%, 46% 46%);
+            z-index: 200;
+            filter: drop-shadow(0 0 15px #fff);
+            animation: star-burst 2s ease-in-out infinite;
+        }
+
+        /* KEYFRAMES */
+        @keyframes rotate-3d-x {
+            from { transform: rotateX(70deg) rotateY(10deg) rotateZ(0deg); }
+            to { transform: rotateX(70deg) rotateY(10deg) rotateZ(360deg); }
+        }
+
+        @keyframes rotate-3d-y {
+            from { transform: rotateX(-60deg) rotateY(-20deg) rotateZ(0deg); }
+            to { transform: rotateX(-60deg) rotateY(-20deg) rotateZ(360deg); }
+        }
+
+        @keyframes counter-rotate-orb1 {
+            from { transform: rotateZ(0deg) rotateY(-10deg) rotateX(-70deg); }
+            to { transform: rotateZ(-360deg) rotateY(-10deg) rotateX(-70deg); }
+        }
+
+        @keyframes counter-rotate-orb2 {
+            from { transform: rotateZ(0deg) rotateY(20deg) rotateX(60deg); }
+            to { transform: rotateZ(360deg) rotateY(20deg) rotateX(60deg); }
+        }
+
+        @keyframes float-3d {
+            0%, 100% { transform: translateY(0) rotateX(10deg) rotateY(-5deg) scale(1); }
+            50% { transform: translateY(-30px) rotateX(-10deg) rotateY(5deg) scale(1.05); }
+        }
+
+        @keyframes liquid-shine {
+            0%, 10% { background-position: 250% 0; }
+            100% { background-position: -150% 0; }
+        }
+
+        @keyframes aura-glow {
+            from { opacity: 0.4; transform: scale(1); }
+            to { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        @keyframes star-burst {
+            0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+        }
+
+        /* Posicionamento dos Olhos */
+        .p1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
+        .p2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+        .p3 { left: 0; top: 50%; transform: translate(-50%, -50%); }
+
     </style>
 </head>
 <body>
 
-    <div id="canvas-container"></div>
+    <div class="container">
+        <div class="neon-aura"></div>
 
-    <script>
-        let scene, camera, renderer, items = [], letterMeshes = [];
-        const name = "FELIPE CANNELI";
-        const eyeCount = 12;
-        const sparkleCount = 16;
-        
-        // Paleta solicitada
-        const colors = [0x00ffff, 0xff00ff, 0xff6600, 0xffff00]; 
-        const colorsStr = ["#00ffff", "#ff00ff", "#ff6600", "#ffff00"];
+        <!-- Órbita 1 -->
+        <div class="orbit-wrap">
+            <div class="orbit orb-1">
+                <div class="eye-container p1">
+                    <div class="eye-ball"><div class="iris"><div class="pupil"></div></div></div>
+                </div>
+                <div class="eye-container p2">
+                    <div class="eye-ball"><div class="iris"><div class="pupil"></div></div></div>
+                </div>
+            </div>
+        </div>
 
-        function init() {
-            scene = new THREE.Scene();
-            
-            // Safe Zone centralizada
-            camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 85; 
+        <!-- Órbita 2 -->
+        <div class="orbit-wrap">
+            <div class="orbit orb-2">
+                <div class="eye-container p3">
+                    <div class="eye-ball"><div class="iris"><div class="pupil"></div></div></div>
+                </div>
+            </div>
+        </div>
 
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
+        <!-- Letreiro High-End Glam -->
+        <h1 class="logo-3d">Felipe Canneli</h1>
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-            scene.add(ambientLight);
+        <!-- Sparkles Glamour -->
+        <div class="glam-star" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+        <div class="glam-star" style="bottom: 15%; right: 15%; animation-delay: 1s;"></div>
+        <div class="glam-star" style="top: 50%; right: 5%; animation-delay: 0.5s; scale: 0.7;"></div>
+    </div>
 
-            const l1 = new THREE.PointLight(colors[0], 4, 150);
-            l1.position.set(30, 20, 40);
-            scene.add(l1);
-
-            const l2 = new THREE.PointLight(colors[1], 4, 150);
-            l2.position.set(-30, -20, 40);
-            scene.add(l2);
-
-            createGummyLetters();
-            createDecorations();
-
-            window.addEventListener('resize', onWindowResize, false);
-            animate();
-        }
-
-        // Olho Slime Saturn (White globe + Black pupil)
-        function createSlimeEyeTexture(glowColor) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512; canvas.height = 512;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, 512, 512);
-
-            // Globo Branco
-            ctx.shadowBlur = 40;
-            ctx.shadowColor = glowColor;
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(256, 256, 180, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Pupila Preta
-            ctx.shadowBlur = 0;
-            ctx.fillStyle = '#000000';
-            ctx.beginPath();
-            ctx.arc(256, 256, 80, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Reflexo Glossy
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(190, 190, 30, 0, Math.PI * 2);
-            ctx.fill();
-
-            return new THREE.CanvasTexture(canvas);
-        }
-
-        function createSparkleTexture(color) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256; canvas.height = 256;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, 256, 256);
-            const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 100);
-            grad.addColorStop(0, 'white');
-            grad.addColorStop(1, 'rgba(255,255,255,0)');
-            ctx.fillStyle = grad;
-            drawStar(ctx, 128, 128, 4, 110, 15);
-            ctx.shadowBlur = 20;
-            ctx.shadowColor = color;
-            ctx.fill();
-            return new THREE.CanvasTexture(canvas);
-        }
-
-        function drawStar(ctx, cx, cy, spikes, r0, r1) {
-            let rot = Math.PI / 2 * 3;
-            let step = Math.PI / spikes;
-            ctx.beginPath(); ctx.moveTo(cx, cy - r0);
-            for (let i = 0; i < spikes; i++) {
-                ctx.lineTo(cx + Math.cos(rot) * r0, cy + Math.sin(rot) * r0);
-                rot += step;
-                ctx.lineTo(cx + Math.cos(rot) * r1, cy + Math.sin(rot) * r1);
-                rot += step;
-            }
-            ctx.closePath();
-        }
-
-        function createGummyLetters() {
-            const fontSize = 320; 
-            name.split('').forEach((char, i) => {
-                if (char === ' ') return;
-                const canvas = document.createElement('canvas');
-                canvas.width = 512; canvas.height = 512;
-                const ctx = canvas.getContext('2d');
-                
-                ctx.font = `normal ${fontSize}px "Bagel Fat One"`;
-                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-
-                const colorIdx = i % colors.length;
-                const accentColorStr = colorsStr[colorIdx];
-                const accentColorHex = colors[colorIdx];
-
-                // Efeito Gummy Jelly (Gradiente Suave)
-                const grad = ctx.createLinearGradient(0, 140, 0, 360);
-                grad.addColorStop(0, '#ffffff'); 
-                grad.addColorStop(0.3, accentColorStr);
-                grad.addColorStop(0.7, accentColorStr);
-                grad.addColorStop(1, '#000000');
-
-                // Glow Neon
-                ctx.shadowBlur = 80; ctx.shadowColor = accentColorStr;
-                ctx.fillStyle = grad;
-                ctx.fillText(char, 256, 256);
-
-                // Reflexo de Luz "Liquid Candy" (O brilho gordinho)
-                ctx.shadowBlur = 0;
-                ctx.strokeStyle = 'white';
-                ctx.lineWidth = 15;
-                ctx.lineCap = 'round';
-                ctx.globalAlpha = 0.4;
-                ctx.beginPath();
-                ctx.arc(256, 256, 120, -Math.PI * 0.8, -Math.PI * 0.2);
-                ctx.stroke();
-
-                ctx.globalAlpha = 0.8;
-                ctx.lineWidth = 8;
-                ctx.strokeText(char, 256, 256);
-
-                const texture = new THREE.CanvasTexture(canvas);
-                const material = new THREE.MeshStandardMaterial({ 
-                    map: texture, 
-                    transparent: true, 
-                    metalness: 0.8, 
-                    roughness: 0.1,
-                    emissive: accentColorHex,
-                    emissiveIntensity: 0.6 
-                });
-
-                const geometry = new THREE.PlaneGeometry(11, 11); 
-                const mesh = new THREE.Mesh(geometry, material);
-                
-                // Letras "grudadas" estilo gummy
-                mesh.position.x = (i - name.length / 2) * 2.35; 
-                mesh.userData = { 
-                    originalX: mesh.position.x, 
-                    phase: i * 0.5, 
-                    speed: 0.7 + Math.random() * 0.3 
-                };
-                letterMeshes.push(mesh);
-                scene.add(mesh);
-            });
-        }
-
-        function createDecorations() {
-            const sparkleTexs = colorsStr.map(c => createSparkleTexture(c));
-            const eyeTex = createSlimeEyeTexture("#fff");
-
-            for (let i = 0; i < eyeCount; i++) {
-                const material = new THREE.SpriteMaterial({ map: eyeTex, transparent: true });
-                const sprite = new THREE.Sprite(material);
-                sprite.scale.set(4, 4, 1);
-                sprite.userData = {
-                    type: 'eye',
-                    angle: (i / eyeCount) * Math.PI * 2,
-                    radiusX: 14 + Math.random() * 3, 
-                    radiusY: 7 + Math.random() * 2,
-                    depth: 16, 
-                    speed: 0.008 + Math.random() * 0.004,
-                    yOffset: (Math.random() - 0.5) * 4
-                };
-                items.push(sprite);
-                scene.add(sprite);
-            }
-
-            for (let i = 0; i < sparkleCount; i++) {
-                const material = new THREE.SpriteMaterial({ 
-                    map: sparkleTexs[i % colors.length], 
-                    transparent: true, 
-                    blending: THREE.AdditiveBlending 
-                });
-                const sprite = new THREE.Sprite(material);
-                sprite.scale.set(1.5, 1.5, 1);
-                sprite.userData = {
-                    type: 'sparkle',
-                    angle: Math.random() * Math.PI * 2,
-                    radiusX: 10 + Math.random() * 8, 
-                    radiusY: 5 + Math.random() * 5,
-                    depth: 12, 
-                    speed: 0.02 + Math.random() * 0.015
-                };
-                items.push(sprite);
-                scene.add(sprite);
-            }
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = Date.now() * 0.001;
-
-            letterMeshes.forEach((mesh, i) => {
-                const d = mesh.userData;
-                mesh.position.y = Math.sin(time * d.speed + d.phase) * 0.6;
-                // Efeito "Squishy" (Pulsação Gummy)
-                const s = 1 + Math.sin(time * 2.5 + d.phase) * 0.05;
-                const squash = 1 + Math.cos(time * 2.5 + d.phase) * 0.02;
-                mesh.scale.set(s, s * squash, 1);
-                
-                mesh.rotation.z = Math.sin(time * 0.5 + d.phase) * 0.03;
-                mesh.material.emissiveIntensity = 0.5 + Math.sin(time * 3 + d.phase) * 0.4;
-            });
-
-            items.forEach((item, i) => {
-                const d = item.userData;
-                d.angle += d.speed;
-                item.position.x = Math.cos(d.angle) * d.radiusX;
-                item.position.y = Math.sin(d.angle * 1.4) * d.radiusY + (d.yOffset || 0);
-                item.position.z = Math.sin(d.angle) * d.depth;
-
-                if (d.type === 'sparkle') {
-                    const s = (1.2 + Math.sin(time * 12 + i) * 0.6);
-                    item.scale.set(s, s, 1);
-                    item.material.opacity = 0.5 + Math.sin(time * 8 + i) * 0.5;
-                } else {
-                    const s = 4 + Math.sin(time * 4 + i) * 0.2;
-                    item.scale.set(s, s, 1);
-                }
-            });
-
-            camera.lookAt(0, 0, 0);
-            renderer.render(scene, camera);
-        }
-
-        window.onload = init;
-    </script>
 </body>
 </html>
