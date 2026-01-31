@@ -11,7 +11,6 @@
             --bright-yellow: #ffea00;
             --glam-red: #ff004c;
             --deep-burgundy: #4a0010;
-            --eye-size: 60px;
         }
 
         body, html {
@@ -42,7 +41,7 @@
         .neon-aura {
             position: absolute;
             width: 800px;
-            height: 300px;
+            height: 400px;
             background: radial-gradient(ellipse, rgba(255, 0, 76, 0.3) 0%, rgba(255, 120, 0, 0.1) 50%, transparent 80%);
             filter: blur(80px);
             z-index: 1;
@@ -59,6 +58,7 @@
             z-index: 100;
             color: white;
             text-align: center;
+            margin: 0;
             
             /* Gradiente Cromado de Base */
             background: linear-gradient(180deg, 
@@ -109,82 +109,6 @@
             animation: liquid-shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        /* SISTEMA DE ÓRBITAS CINEMÁTICAS */
-        .orbit-wrap {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            pointer-events: none;
-        }
-
-        .orbit {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-style: preserve-3d;
-        }
-
-        /* Órbita 1: Ampla e Lenta */
-        .orb-1 { width: 1000px; height: 500px; margin-top: -250px; margin-left: -500px; animation: rotate-3d-x 15s linear infinite; }
-        /* Órbita 2: Rápida e Inclinada */
-        .orb-2 { width: 700px; height: 900px; margin-top: -450px; margin-left: -350px; animation: rotate-3d-y 10s linear infinite reverse; }
-
-        /* OLHO GLAM */
-        .eye-container {
-            position: absolute;
-            width: var(--eye-size);
-            height: var(--eye-size);
-            transform-style: preserve-3d;
-        }
-
-        .eye-ball {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, #fff 0%, #eee 40%, #ccc 100%);
-            border-radius: 50%;
-            border: 4px solid #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset -5px -5px 15px rgba(0,0,0,0.2);
-            /* Mantém o olho de frente para a câmara */
-            animation: counter-rotate-orb1 15s linear infinite;
-        }
-
-        .orb-2 .eye-ball { animation: counter-rotate-orb2 10s linear infinite; }
-
-        .iris {
-            width: 35px;
-            height: 35px;
-            background: radial-gradient(circle, #000 20%, var(--glam-red) 80%, var(--primary-orange) 100%);
-            border-radius: 50%;
-            border: 2px solid #000;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .pupil {
-            width: 15px;
-            height: 15px;
-            background: #000;
-            border-radius: 50%;
-        }
-
-        .pupil::after {
-            content: '';
-            position: absolute;
-            top: 4px;
-            left: 6px;
-            width: 12px;
-            height: 8px;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            transform: rotate(-30deg);
-        }
-
         /* Sparkles Y2K de Alta Intensidade */
         .glam-star {
             position: absolute;
@@ -198,26 +122,6 @@
         }
 
         /* KEYFRAMES */
-        @keyframes rotate-3d-x {
-            from { transform: rotateX(70deg) rotateY(10deg) rotateZ(0deg); }
-            to { transform: rotateX(70deg) rotateY(10deg) rotateZ(360deg); }
-        }
-
-        @keyframes rotate-3d-y {
-            from { transform: rotateX(-60deg) rotateY(-20deg) rotateZ(0deg); }
-            to { transform: rotateX(-60deg) rotateY(-20deg) rotateZ(360deg); }
-        }
-
-        @keyframes counter-rotate-orb1 {
-            from { transform: rotateZ(0deg) rotateY(-10deg) rotateX(-70deg); }
-            to { transform: rotateZ(-360deg) rotateY(-10deg) rotateX(-70deg); }
-        }
-
-        @keyframes counter-rotate-orb2 {
-            from { transform: rotateZ(0deg) rotateY(20deg) rotateX(60deg); }
-            to { transform: rotateZ(360deg) rotateY(20deg) rotateX(60deg); }
-        }
-
         @keyframes float-3d {
             0%, 100% { transform: translateY(0) rotateX(10deg) rotateY(-5deg) scale(1); }
             50% { transform: translateY(-30px) rotateX(-10deg) rotateY(5deg) scale(1.05); }
@@ -238,46 +142,28 @@
             50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
         }
 
-        /* Posicionamento dos Olhos */
-        .p1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
-        .p2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
-        .p3 { left: 0; top: 50%; transform: translate(-50%, -50%); }
+        /* Responsividade Básica */
+        @media (max-width: 768px) {
+            .logo-3d { font-size: 80px; }
+            .neon-aura { width: 90%; }
+        }
 
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Aura de Fundo -->
         <div class="neon-aura"></div>
-
-        <!-- Órbita 1 -->
-        <div class="orbit-wrap">
-            <div class="orbit orb-1">
-                <div class="eye-container p1">
-                    <div class="eye-ball"><div class="iris"><div class="pupil"></div></div></div>
-                </div>
-                <div class="eye-container p2">
-                    <div class="eye-ball"><div class="iris"><div class="pupil"></div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Órbita 2 -->
-        <div class="orbit-wrap">
-            <div class="orbit orb-2">
-                <div class="eye-container p3">
-                    <div class="eye-ball"><div class="iris"><div class="pupil"></div></div></div>
-                </div>
-            </div>
-        </div>
 
         <!-- Letreiro High-End Glam -->
         <h1 class="logo-3d">Felipe Canneli</h1>
 
         <!-- Sparkles Glamour -->
-        <div class="glam-star" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
-        <div class="glam-star" style="bottom: 15%; right: 15%; animation-delay: 1s;"></div>
-        <div class="glam-star" style="top: 50%; right: 5%; animation-delay: 0.5s; scale: 0.7;"></div>
+        <div class="glam-star" style="top: 15%; left: 15%; animation-delay: 0s;"></div>
+        <div class="glam-star" style="bottom: 20%; right: 15%; animation-delay: 1s;"></div>
+        <div class="glam-star" style="top: 55%; right: 8%; animation-delay: 0.5s; scale: 0.7;"></div>
+        <div class="glam-star" style="bottom: 10%; left: 20%; animation-delay: 1.5s; scale: 0.5;"></div>
     </div>
 
 </body>
